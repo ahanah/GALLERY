@@ -2,13 +2,21 @@ import React from "react";
 import useFirestore from "../hooks/useFirestore";
 import { motion } from "framer-motion";
 
+var newDocs;
 const ImageGrid = ({ setSelectedImg }) => {
-  const { docs } = useFirestore("images");
-  console.log(docs);
+  let { docs } = useFirestore("images");
+  newDocs = docs;
+  const deleteFromStorage = (id) =>{
+    newDocs = newDocs.filter((doc) => doc.id !== id);
+  };
+  deleteFromStorage("uWmTXG7lw86XXTri1lZm");
+  deleteFromStorage("JO5XQaqPKdYeXGU9pcdv");
+  deleteFromStorage("FoHVHHQnnp8pErghn27e");
+  console.log(newDocs);
   return (
     <div className="img-grid">
-      {docs &&
-        docs.map((doc) => (
+      {newDocs &&
+        newDocs.map((doc) => (
           <motion.div
             className="img-wrap"
             key={doc.id}
